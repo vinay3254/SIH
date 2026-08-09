@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 577" width="500" height="577">
+  <defs>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a8d5b5;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8eb69b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#659274;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Hexagon -->
+  <polygon points="250,20 470,147 470,402 250,529 30,402 30,147" fill="url(#hexGrad)" filter="url(#shadow)"/>
+
+  <!-- Inner Hexagon Ring -->
+  <polygon points="250,85 415,180 415,370 250,465 85,370 85,180" fill="none" stroke="#1f442b" stroke-width="28" stroke-linejoin="round"/>
+
+  <!-- Center Fill Hexagon -->
+  <polygon points="250,120 380,195 380,355 250,430 120,355 120,195" fill="#a0c9ac"/>
+
+  <!-- Slash Line Across -->
+  <line x1="410" y1="110" x2="90" y2="440" stroke="#1f442b" stroke-width="22" stroke-linecap="round"/>
+</svg>
