@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graph-service
+  namespace: sih1745
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graph-service
+  template:
+    metadata:
+      labels:
+        app: graph-service
+    spec:
+      containers:
+      - name: graph-service
+        image: sih1745/graph-service:latest
+        ports:
+        - containerPort: 5005
+        envFrom:
+        - configMapRef:
+            name: sih1745-config
+        - secretRef:
+            name: sih1745-secrets
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5005
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graph-service
+  namespace: sih1745
+spec:
+  selector:
+    app: graph-service
+  ports:
+    - protocol: TCP
+      port: 5005
+      targetPort: 5005

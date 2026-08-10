@@ -88,7 +88,7 @@ function formatFileSize(bytes: number): string {
 function fileTypeColor(name: string): string {
   if (name.endsWith('.pcap') || name.endsWith('.pcapng')) return '#60a5fa';
   if (name.endsWith('.json')) return '#f59e0b';
-  if (name.endsWith('.csv')) return '#4ade80';
+  if (name.endsWith('.csv')) return '#28CD41';
   return 'var(--color-accent)';
 }
 
@@ -127,10 +127,10 @@ function EvidenceUploader({
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
-        className={`relative rounded-xl border-2 border-dashed p-8 text-center transition-all duration-200 ${isDragging ? 'drop-zone-active' : ''}`}
+        className={`relative rounded-[980px] border-2 border-dashed p-8 text-center transition-all duration-200 ${isDragging ? 'drop-zone-active' : ''}`}
         style={{
-          borderColor: isDragging ? 'var(--color-accent)' : 'rgba(142,182,155,0.3)',
-          background: isDragging ? 'rgba(142,182,155,0.06)' : 'rgba(142,182,155,0.03)',
+          borderColor: isDragging ? 'var(--color-accent)' : 'rgba(0,113,227,0.3)',
+          background: isDragging ? 'rgba(0,113,227,0.08)' : 'rgba(0,113,227,0.04)',
         }}
         role="region"
         aria-label="Evidence file upload area"
@@ -140,18 +140,18 @@ function EvidenceUploader({
             className="w-14 h-14 rounded-full flex items-center justify-center"
             style={{ background: 'rgba(142,182,155,0.12)' }}
           >
-            <Upload size={24} style={{ color: 'var(--color-accent)' }} />
+            <Upload size={24} style={{ color: '#1D1D1F', fontSize: '13px', fontWeight: 500 }} />
           </div>
           <div>
-            <p className="text-sm font-600 mb-1" style={{ color: 'var(--color-highlight)' }}>
+            <p className="text-sm font-600 mb-1" style={{ color: '#1D1D1F', fontWeight: 600, letterSpacing: '-0.01em' }}>
               Drop evidence files here
             </p>
-            <p className="text-xs" style={{ color: 'var(--muted-foreground)' }}>
+            <p className="text-xs" style={{ color: '#6E6E73' }}>
               or{' '}
               <label
                 htmlFor="file-input"
                 className="font-600 cursor-pointer underline underline-offset-2"
-                style={{ color: 'var(--color-accent)' }}
+                style={{ color: '#1D1D1F', fontSize: '13px', fontWeight: 500 }}
               >
                 browse to upload
               </label>
@@ -214,19 +214,19 @@ function EvidenceUploader({
                 <div className="flex items-center gap-2">
                   <p
                     className="text-xs font-600 truncate"
-                    style={{ color: 'var(--color-highlight)' }}
+                    style={{ color: '#1D1D1F', fontWeight: 600, letterSpacing: '-0.01em' }}
                   >
                     {uf.file.name}
                   </p>
                   {/* Status badge */}
                   {uf.status === 'valid' && (
-                    <span className="flex items-center gap-1 text-2xs" style={{ color: '#4ade80' }}>
+                    <span className="flex items-center gap-1 text-2xs" style={{ color: '#28CD41' }}>
                       <CheckCircle2 size={11} />
                       Valid
                     </span>
                   )}
                   {uf.status === 'invalid' && (
-                    <span className="flex items-center gap-1 text-2xs" style={{ color: '#ef4444' }}>
+                    <span className="flex items-center gap-1 text-2xs" style={{ color: '#FF3B30' }}>
                       <AlertCircle size={11} />
                       Invalid
                     </span>
@@ -238,16 +238,16 @@ function EvidenceUploader({
                     </span>
                   )}
                   {uf.status === 'uploaded' && (
-                    <span className="flex items-center gap-1 text-2xs" style={{ color: '#4ade80' }}>
+                    <span className="flex items-center gap-1 text-2xs" style={{ color: '#28CD41' }}>
                       <CheckCircle2 size={11} />
                       Ingested
                     </span>
                   )}
                 </div>
-                <p className="text-2xs mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
+                <p className="text-2xs mt-0.5" style={{ color: '#6E6E73' }}>
                   {formatFileSize(uf.file.size)}
                   {uf.error && (
-                    <span className="ml-2" style={{ color: '#ef4444' }}>
+                    <span className="ml-2" style={{ color: '#FF3B30' }}>
                       · {uf.error}
                     </span>
                   )}
@@ -274,10 +274,10 @@ function EvidenceUploader({
                 type="button"
                 onClick={() => onFileRemove(uf.id)}
                 className="p-1.5 rounded flex-shrink-0 transition-all duration-150"
-                style={{ color: 'var(--muted-foreground)' }}
+                style={{ color: '#6E6E73' }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background = 'rgba(239,68,68,0.12)';
-                  (e.currentTarget as HTMLButtonElement).style.color = '#ef4444';
+                  (e.currentTarget as HTMLButtonElement).style.color = '#FF3B30';
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
@@ -297,13 +297,13 @@ function EvidenceUploader({
       <div
         className="flex items-start gap-2 p-3 rounded-lg text-xs"
         style={{
-          background: 'rgba(142,182,155,0.06)',
+          background: 'rgba(0,113,227,0.08)',
           border: '1px solid rgba(142,182,155,0.15)',
         }}
       >
-        <Shield size={13} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-accent)' }} />
-        <p style={{ color: 'var(--muted-foreground)' }}>
-          <span className="font-600" style={{ color: 'var(--color-accent)' }}>
+        <Shield size={13} className="flex-shrink-0 mt-0.5" style={{ color: '#1D1D1F', fontSize: '13px', fontWeight: 500 }} />
+        <p style={{ color: '#6E6E73' }}>
+          <span className="font-600" style={{ color: '#1D1D1F', fontSize: '13px', fontWeight: 500 }}>
             Chain-of-Custody Notice:{' '}
           </span>
           All uploaded evidence files are hashed (SHA-256) on ingestion and logged immutably. File metadata including uploader identity, timestamp, and hash are appended to the case audit trail. Evidence cannot be modified after ingestion — only superseded by a new version with a new audit entry.
@@ -336,10 +336,10 @@ function SectionHeader({
         {number}
       </div>
       <div>
-        <h2 className="text-base font-600" style={{ color: 'var(--color-highlight)' }}>
+        <h2 className="text-base font-600" style={{ color: '#1D1D1F', fontWeight: 600, letterSpacing: '-0.01em' }}>
           {title}
         </h2>
-        <p className="text-xs mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
+        <p className="text-xs mt-0.5" style={{ color: '#6E6E73' }}>
           {description}
         </p>
       </div>
@@ -368,11 +368,11 @@ function FormField({
       <label
         htmlFor={htmlFor}
         className="block text-xs font-600 mb-1 tracking-wide"
-        style={{ color: 'var(--color-accent)' }}
+        style={{ color: '#1D1D1F', fontSize: '13px', fontWeight: 500 }}
       >
         {label}
         {required && (
-          <span className="ml-1" style={{ color: '#ef4444' }} aria-label="required">
+          <span className="ml-1" style={{ color: '#FF3B30' }} aria-label="required">
             *
           </span>
         )}
@@ -384,7 +384,7 @@ function FormField({
       )}
       {children}
       {error && (
-        <p className="text-xs mt-1 flex items-center gap-1" style={{ color: '#ef4444' }} role="alert">
+        <p className="text-xs mt-1 flex items-center gap-1" style={{ color: '#FF3B30' }} role="alert">
           <AlertCircle size={11} />
           {error}
         </p>
@@ -494,10 +494,10 @@ export function NewCaseForm() {
   };
 
   const selectStyle: React.CSSProperties = {
-    background: 'var(--input, #030712)',
-    border: '1.5px solid var(--border, #1f2937)',
-    borderRadius: 'var(--radius, 0.75rem)',
-    color: 'var(--foreground, #f3f4f6)',
+    background: 'rgba(118,118,128,0.12)',
+    border: 'none',
+    borderRadius: '10px',
+    color: '#1D1D1F',
     fontSize: '0.875rem',
     padding: '0.625rem 0.875rem',
     outline: 'none',
@@ -514,7 +514,7 @@ export function NewCaseForm() {
         >
           <CheckCircle2 size={32} />
         </div>
-        <h2 className="text-xl font-bold mb-2 text-white">
+        <h2 className="text-xl font-bold mb-2 text-[#1D1D1F]">
           Case Created Successfully
         </h2>
         <p className="text-sm mb-1 text-gray-300">
@@ -528,14 +528,14 @@ export function NewCaseForm() {
         <div className="flex gap-3">
           <Link
             href="/"
-            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition-colors"
+            className="px-5 py-2.5 rounded-[980px] text-xs font-bold bg-[#0071E3] hover:bg-cyan-500 text-[#1D1D1F] transition-colors"
           >
             Back to Dashboard
           </Link>
           <button
             type="button"
             onClick={() => setSubmitSuccess(false)}
-            className="px-5 py-2.5 rounded-xl text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-gray-200 transition-colors"
+            className="px-5 py-2.5 rounded-[980px] text-xs font-semibold bg-gray-800 hover:bg-gray-700 text-gray-200 transition-colors"
           >
             Create Another Case
           </button>
@@ -551,27 +551,27 @@ export function NewCaseForm() {
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 hover:text-white transition-colors"
+            className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-[980px] bg-gray-900 border border-gray-800 text-gray-300 hover:text-[#1D1D1F] transition-colors"
           >
             <ChevronLeft size={14} />
             Dashboard
           </Link>
           <span className="text-gray-600">/</span>
-          <h1 className="text-xl font-bold text-white">
+          <h1 className="text-xl font-bold text-[#1D1D1F]">
             New Investigation Case
           </h1>
         </div>
 
         {/* Required fields legend */}
         <p className="text-xs text-gray-400 font-mono">
-          <span className="text-rose-400">*</span> Required fields
+          <span className="text-[#FF3B30]">*</span> Required fields
         </p>
       </div>
 
       {/* Unsaved changes notice */}
       {isDirty && (
         <div
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-5 text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-[980px] mb-5 text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400"
           role="status"
         >
           <Info size={13} />
@@ -582,7 +582,7 @@ export function NewCaseForm() {
       <div className="space-y-6">
         {/* ── Section 1: Case Metadata ─────────────────────────────────── */}
         <div
-          className="rounded-2xl border p-6 bg-gray-900 border-gray-800"
+          className="rounded-[16px] bg-[#FFFFFF] p-6 border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.08),_0_4px_16px_rgba(0,0,0,0.04)]"
         >
           <SectionHeader
             number="1"
@@ -605,7 +605,7 @@ export function NewCaseForm() {
                   type="text"
                   placeholder="e.g. Operation Nightshade"
                   {...register('caseName')}
-                  className={`w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs text-white focus:outline-none focus:border-cyan-500 transition-colors ${errors.caseName ? 'border-rose-500' : ''}`}
+                  className={`w-full px-3.5 py-2.5 rounded-[980px] bg-[rgba(118,118,128,0.12)] border-none rounded-[10px] text-[#1D1D1F] focus:bg-[rgba(118,118,128,0.16)] focus:outline focus:outline-2 focus:outline-[rgba(0,113,227,0.5)] text-xs text-[#1D1D1F] focus:outline-none focus:border-cyan-500 transition-colors ${errors.caseName ? 'border-rose-500' : ''}`}
                   aria-invalid={!!errors.caseName}
                   aria-describedby={errors.caseName ? 'caseName-error' : undefined}
                 />
@@ -627,7 +627,7 @@ export function NewCaseForm() {
                     rows={4}
                     placeholder="Describe the suspected illegal marketplace activity, known onion addresses, and basis for investigation…"
                     {...register('description')}
-                    className={`w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none ${errors.description ? 'border-rose-500' : ''}`}
+                    className={`w-full px-3.5 py-2.5 rounded-[980px] bg-[rgba(118,118,128,0.12)] border-none rounded-[10px] text-[#1D1D1F] focus:bg-[rgba(118,118,128,0.16)] focus:outline focus:outline-2 focus:outline-[rgba(0,113,227,0.5)] text-xs text-[#1D1D1F] focus:outline-none focus:border-cyan-500 transition-colors resize-none ${errors.description ? 'border-rose-500' : ''}`}
                     aria-invalid={!!errors.description}
                   />
                   <span
@@ -715,7 +715,7 @@ export function NewCaseForm() {
                 type="text"
                 placeholder="e.g. APPR-2026-0447 or SSV badge #"
                 {...register('supervisorApproval')}
-                className={`w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs text-white font-mono focus:outline-none focus:border-cyan-500 transition-colors ${errors.supervisorApproval ? 'border-rose-500' : ''}`}
+                className={`w-full px-3.5 py-2.5 rounded-[980px] bg-[rgba(118,118,128,0.12)] border-none rounded-[10px] text-[#1D1D1F] focus:bg-[rgba(118,118,128,0.16)] focus:outline focus:outline-2 focus:outline-[rgba(0,113,227,0.5)] text-xs text-[#1D1D1F] font-mono focus:outline-none focus:border-cyan-500 transition-colors ${errors.supervisorApproval ? 'border-rose-500' : ''}`}
                 aria-invalid={!!errors.supervisorApproval}
               />
             </FormField>
@@ -733,7 +733,7 @@ export function NewCaseForm() {
                 type="text"
                 placeholder="e.g. Warrant #WR-2026-00234 or 18 U.S.C. § 2703"
                 {...register('legalAuthority')}
-                className={`w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs text-white font-mono focus:outline-none focus:border-cyan-500 transition-colors ${errors.legalAuthority ? 'border-rose-500' : ''}`}
+                className={`w-full px-3.5 py-2.5 rounded-[980px] bg-[rgba(118,118,128,0.12)] border-none rounded-[10px] text-[#1D1D1F] focus:bg-[rgba(118,118,128,0.16)] focus:outline focus:outline-2 focus:outline-[rgba(0,113,227,0.5)] text-xs text-[#1D1D1F] font-mono focus:outline-none focus:border-cyan-500 transition-colors ${errors.legalAuthority ? 'border-rose-500' : ''}`}
                 aria-invalid={!!errors.legalAuthority}
               />
             </FormField>
@@ -745,7 +745,7 @@ export function NewCaseForm() {
                   className="text-xs font-mono font-semibold text-gray-300"
                 >
                   Target Onion Addresses{' '}
-                  <span className="text-rose-400">*</span>
+                  <span className="text-[#FF3B30]">*</span>
                 </label>
                 <button
                   type="button"
@@ -762,7 +762,7 @@ export function NewCaseForm() {
               </p>
 
               {errors.onionAddresses?.root?.message && (
-                <p className="text-xs mb-2 flex items-center gap-1 text-rose-400">
+                <p className="text-xs mb-2 flex items-center gap-1 text-[#FF3B30]">
                   <AlertCircle size={11} />
                   {errors.onionAddresses.root.message}
                 </p>
@@ -782,7 +782,7 @@ export function NewCaseForm() {
                           type="text"
                           placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.onion"
                           {...register(`onionAddresses.${index}.address`)}
-                          className={`w-full pl-9 pr-3 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition-colors ${
+                          className={`w-full pl-9 pr-3 py-2.5 rounded-[980px] bg-[rgba(118,118,128,0.12)] border-none rounded-[10px] text-[#1D1D1F] focus:bg-[rgba(118,118,128,0.16)] focus:outline focus:outline-2 focus:outline-[rgba(0,113,227,0.5)] text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-500 transition-colors ${
                             errors.onionAddresses?.[index]?.address ? 'border-rose-500' : ''
                           }`}
                           aria-label={`Onion address ${index + 1}`}
@@ -791,7 +791,7 @@ export function NewCaseForm() {
                       </div>
                       {errors.onionAddresses?.[index]?.address && (
                         <p
-                          className="text-xs mt-1 flex items-center gap-1 text-rose-400"
+                          className="text-xs mt-1 flex items-center gap-1 text-[#FF3B30]"
                           role="alert"
                         >
                           <AlertCircle size={11} />
@@ -803,7 +803,7 @@ export function NewCaseForm() {
                       <button
                         type="button"
                         onClick={() => removeOnion(index)}
-                        className="p-2.5 rounded-xl text-gray-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors mt-0.5"
+                        className="p-2.5 rounded-[980px] text-gray-500 hover:text-[#FF3B30] hover:bg-rose-500/10 transition-colors mt-0.5"
                         aria-label={`Remove onion address ${index + 1}`}
                         title="Remove this onion address"
                       >
@@ -829,7 +829,7 @@ export function NewCaseForm() {
                     rows={3}
                     placeholder="Optional: additional context, related cases, intelligence source references…"
                     {...register('caseNotes')}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-[980px] bg-[rgba(118,118,128,0.12)] border-none rounded-[10px] text-[#1D1D1F] focus:bg-[rgba(118,118,128,0.16)] focus:outline focus:outline-2 focus:outline-[rgba(0,113,227,0.5)] text-xs text-[#1D1D1F] focus:outline-none focus:border-cyan-500 transition-colors resize-none"
                   />
                   <span
                     className="absolute bottom-2 right-3 text-[10px] font-mono text-gray-500"
@@ -844,7 +844,7 @@ export function NewCaseForm() {
 
         {/* ── Section 2: Evidence Intake ────────────────────────────────── */}
         <div
-          className="rounded-2xl border p-6 bg-gray-900 border-gray-800"
+          className="rounded-[16px] bg-[#FFFFFF] p-6 border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.08),_0_4px_16px_rgba(0,0,0,0.04)]"
         >
           <SectionHeader
             number="2"
@@ -854,7 +854,7 @@ export function NewCaseForm() {
 
           {/* Ingestion info banner */}
           <div
-            className="flex items-start gap-2 p-3 rounded-xl mb-5 text-xs bg-blue-500/10 border border-blue-500/30 text-blue-300"
+            className="flex items-start gap-2 p-3 rounded-[980px] mb-5 text-xs bg-blue-500/10 border border-blue-500/30 text-blue-300"
           >
             <Info size={13} className="flex-shrink-0 mt-0.5" />
             <div className="text-gray-300 leading-relaxed">
@@ -874,7 +874,7 @@ export function NewCaseForm() {
           {/* Invalid files warning */}
           {uploadedFiles.some((f) => f.status === 'invalid') && (
             <div
-              className="flex items-start gap-2 p-3 rounded-xl mt-3 text-xs bg-rose-500/10 border border-rose-500/30 text-rose-400"
+              className="flex items-start gap-2 p-3 rounded-[980px] mt-3 text-xs bg-rose-500/10 border border-rose-500/30 text-[#FF3B30]"
               role="alert"
             >
               <AlertTriangle size={13} className="flex-shrink-0 mt-0.5" />
@@ -885,7 +885,7 @@ export function NewCaseForm() {
 
         {/* ── Section 3: Review summary ─────────────────────────────────── */}
         <div
-          className="rounded-2xl border p-5 bg-gray-900/60 border-gray-800"
+          className="rounded-[16px] bg-[#FFFFFF] p-5 border border-[rgba(0,0,0,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.08),_0_4px_16px_rgba(0,0,0,0.04)]"
         >
           <div className="flex items-start gap-2">
             <FileText size={15} className="flex-shrink-0 mt-0.5 text-cyan-400" />
@@ -916,7 +916,7 @@ export function NewCaseForm() {
 
       {/* ── Bottom action bar ──────────────────────────────────────────── */}
       <div
-        className="sticky bottom-0 left-0 right-0 mt-6 px-6 py-4 rounded-2xl border border-gray-800 bg-gray-950/90 backdrop-blur z-10 flex items-center justify-between gap-4"
+        className="sticky bottom-0 left-0 right-0 mt-6 px-6 py-4 rounded-2xl border border-gray-800 bg-[#F5F5F7]/90 backdrop-blur z-10 flex items-center justify-between gap-4"
       >
         <div className="flex items-center gap-3">
           {/* File summary */}
@@ -924,7 +924,7 @@ export function NewCaseForm() {
             <span className="text-xs text-gray-400 font-mono">
               {uploadedFiles.filter((f) => f.status === 'valid' || f.status === 'uploaded').length} valid file(s) ·{' '}
               {uploadedFiles.filter((f) => f.status === 'invalid').length > 0 && (
-                <span className="text-rose-400">
+                <span className="text-[#FF3B30]">
                   {uploadedFiles.filter((f) => f.status === 'invalid').length} invalid
                 </span>
               )}
@@ -935,14 +935,14 @@ export function NewCaseForm() {
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="px-5 py-2.5 rounded-xl text-xs font-semibold bg-gray-900 border border-gray-800 text-gray-300 hover:text-white transition-colors"
+            className="px-5 py-2.5 rounded-[980px] text-xs font-semibold bg-gray-900 border border-gray-800 text-gray-300 hover:text-[#1D1D1F] transition-colors"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 disabled:opacity-60 text-white transition-colors shadow-lg shadow-cyan-600/30"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-[980px] text-xs font-bold bg-[#0071E3] hover:bg-cyan-500 disabled:opacity-60 text-[#1D1D1F] transition-colors shadow-lg shadow-cyan-600/30"
           >
             {isSubmitting ? (
               <>

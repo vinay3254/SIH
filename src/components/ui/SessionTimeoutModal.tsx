@@ -1,17 +1,17 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { AlertTriangle, RefreshCw, LogOut } from 'lucide-react';
 
 interface SessionTimeoutModalProps {
   isOpen: boolean;
-  secondsRemaining: number;
+  secondsRemaining?: number;
   onExtend: () => void;
   onLogout: () => void;
 }
 
 export default function SessionTimeoutModal({
   isOpen,
-  secondsRemaining,
+  secondsRemaining = 120,
   onExtend,
   onLogout,
 }: SessionTimeoutModalProps) {

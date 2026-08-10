@@ -31,29 +31,31 @@ export default function Topbar() {
 
   return (
     <header
-      className="flex items-center justify-between h-14 px-6 border-b flex-shrink-0 z-10"
+      className="flex items-center justify-between h-14 px-6 border-b flex-shrink-0 z-10 glass-topbar"
       style={{
-        background: 'var(--bg-base)',
-        borderColor: 'rgba(142,182,155,0.15)',
+        borderColor: 'rgba(0,0,0,0.08)',
+        transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)'
       }}
     >
       {/* Left: breadcrumb / search */}
       <div className="flex items-center gap-4">
         <div
-          className="flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm"
+          className="flex items-center gap-2 px-3 py-1.5 text-sm"
           style={{
-            background: 'var(--surface-1)',
-            borderColor: 'rgba(142,182,155,0.2)',
-            color: 'var(--muted-foreground)',
+            background: 'rgba(118,118,128,0.12)',
+            border: 'none',
+            borderRadius: '8px',
+            color: '#1D1D1F',
+            transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)'
           }}
         >
-          <Search size={14} />
-          <span className="text-xs">Search cases, evidence, jobs…</span>
+          <Search size={14} style={{ color: '#6E6E73' }} />
+          <span className="text-xs" style={{ color: '#6E6E73' }}>Search cases, evidence, jobs…</span>
           <kbd
             className="text-2xs px-1.5 py-0.5 rounded font-mono ml-2"
             style={{
-              background: 'var(--surface-2)',
-              color: 'var(--color-accent)',
+              background: 'rgba(0,0,0,0.06)',
+              color: '#6E6E73',
             }}
           >
             ⌘K
@@ -65,11 +67,12 @@ export default function Topbar() {
       <div className="flex items-center gap-3">
         {/* Session timer */}
         <div
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md border text-xs font-mono font-600 ${isWarning ? 'session-timer-warning' : ''}`}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-600 ${isWarning ? 'session-timer-warning' : ''}`}
           style={{
-            background: isWarning ? 'rgba(245,158,11,0.1)' : 'var(--surface-1)',
-            borderColor: isWarning ? 'rgba(245,158,11,0.3)' : 'rgba(142,182,155,0.2)',
-            color: isWarning ? '#f59e0b' : 'var(--color-accent)',
+            background: isWarning ? 'rgba(255,159,10,0.12)' : 'rgba(118,118,128,0.1)',
+            border: 'none',
+            color: isWarning ? '#FF9F0A' : '#6E6E73',
+            transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)'
           }}
           title="Session auto-expires after inactivity"
         >
@@ -79,15 +82,13 @@ export default function Topbar() {
 
         {/* Notifications */}
         <button
-          className="relative p-2 rounded-md transition-all duration-150"
-          style={{ color: 'var(--color-accent)' }}
+          className="relative p-2 rounded-full transition-all duration-150"
+          style={{ color: '#1D1D1F', transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)' }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = 'var(--surface-1)';
-            (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-highlight)';
+            (e.currentTarget as HTMLButtonElement).style.background = 'rgba(0,0,0,0.06)';
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-            (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-accent)';
           }}
           aria-label="Notifications"
         >
@@ -102,58 +103,63 @@ export default function Topbar() {
         <div className="relative">
           <button
             onClick={() => setShowUserMenu((v) => !v)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-md border transition-all duration-150"
+            className="flex items-center gap-2 px-3 py-1.5"
             style={{
-              background: 'var(--surface-1)',
-              borderColor: 'rgba(142,182,155,0.2)',
+              background: 'rgba(118,118,128,0.1)',
+              border: 'none',
+              borderRadius: '10px',
+              transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)'
             }}
             aria-expanded={showUserMenu}
             aria-haspopup="true"
           >
             <div
               className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-700 flex-shrink-0"
-              style={{ background: 'var(--surface-2)', color: 'var(--color-highlight)' }}
+              style={{ background: '#0071E3', color: 'white' }}
             >
               {MOCK_USER.name.charAt(0)}
             </div>
             <div className="text-left hidden sm:block">
-              <p className="text-xs font-600 leading-tight" style={{ color: 'var(--color-highlight)' }}>
+              <p className="text-xs font-600 leading-tight" style={{ color: '#1D1D1F' }}>
                 {MOCK_USER.name}
               </p>
               <div className="flex items-center gap-1">
-                <Shield size={9} style={{ color: 'var(--color-accent)' }} />
-                <p className="text-2xs" style={{ color: 'var(--color-accent)' }}>
+                <Shield size={9} style={{ color: '#6E6E73' }} />
+                <p className="text-2xs" style={{ color: '#6E6E73' }}>
                   {MOCK_USER.role} · {MOCK_USER.unit}
                 </p>
               </div>
             </div>
-            <ChevronDown size={13} style={{ color: 'var(--color-accent)' }} />
+            <ChevronDown size={13} style={{ color: '#6E6E73' }} />
           </button>
 
           {showUserMenu && (
             <div
-              className="absolute right-0 top-full mt-1 w-48 rounded-lg border shadow-modal py-1 z-50 fade-in"
+              className="absolute right-0 top-full mt-1 w-48 rounded-lg border shadow-modal py-1 z-50 fade-in glass-panel"
               style={{
-                background: 'var(--surface-1)',
-                borderColor: 'rgba(142,182,155,0.2)',
+                background: 'rgba(255, 255, 255, 0.8)',
+                borderColor: 'rgba(0,0,0,0.08)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)'
               }}
             >
               <div
                 className="px-3 py-2 border-b"
-                style={{ borderColor: 'rgba(142,182,155,0.15)' }}
+                style={{ borderColor: 'rgba(0,0,0,0.08)' }}
               >
-                <p className="text-xs font-600" style={{ color: 'var(--color-highlight)' }}>
+                <p className="text-xs font-600" style={{ color: '#1D1D1F' }}>
                   {MOCK_USER.name}
                 </p>
-                <p className="text-2xs" style={{ color: 'var(--color-accent)' }}>
+                <p className="text-2xs" style={{ color: '#6E6E73' }}>
                   {MOCK_USER.unit}
                 </p>
               </div>
               <button
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs transition-all duration-150"
-                style={{ color: '#ef4444' }}
+                style={{ color: '#FF3B30', transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)' }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = 'rgba(239,68,68,0.1)';
+                  (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,59,48,0.08)';
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLButtonElement).style.background = 'transparent';

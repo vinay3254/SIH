@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audit-service
+  namespace: sih1745
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: audit-service
+  template:
+    metadata:
+      labels:
+        app: audit-service
+    spec:
+      containers:
+      - name: audit-service
+        image: sih1745/audit-service:latest
+        ports:
+        - containerPort: 5001
+        envFrom:
+        - configMapRef:
+            name: sih1745-config
+        - secretRef:
+            name: sih1745-secrets
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5001
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: audit-service
+  namespace: sih1745
+spec:
+  selector:
+    app: audit-service
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001

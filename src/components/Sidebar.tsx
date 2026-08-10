@@ -97,17 +97,16 @@ export default function Sidebar({ currentPath = '/' }: SidebarProps) {
 
   return (
     <aside
-      className="flex flex-col flex-shrink-0 h-screen border-r overflow-hidden sidebar-transition relative z-20"
+      className="flex flex-col flex-shrink-0 h-screen border-r overflow-hidden sidebar-transition relative z-20 glass-sidebar"
       style={{
         width: collapsed ? '64px' : '240px',
-        background: 'var(--bg-base)',
-        borderColor: 'rgba(142,182,155,0.15)',
+        background: 'transparent',
       }}
     >
       {/* Logo */}
       <div
         className="flex items-center h-14 px-3 border-b flex-shrink-0"
-        style={{ borderColor: 'rgba(142,182,155,0.15)' }}
+        style={{ borderColor: 'rgba(0,0,0,0.08)' }}
       >
         <div className="flex items-center gap-2 min-w-0">
           <AppLogo size={32} />
@@ -115,13 +114,13 @@ export default function Sidebar({ currentPath = '/' }: SidebarProps) {
             <div className="min-w-0 overflow-hidden">
               <span
                 className="font-mono text-sm font-600 tracking-wider truncate block"
-                style={{ color: 'var(--color-highlight)' }}
+                style={{ color: '#1D1D1F' }}
               >
                 SIH1745
               </span>
               <span
                 className="text-2xs font-500 tracking-widest uppercase truncate block"
-                style={{ color: 'var(--color-accent)' }}
+                style={{ color: '#6E6E73' }}
               >
                 TOR Intel
               </span>
@@ -139,7 +138,7 @@ export default function Sidebar({ currentPath = '/' }: SidebarProps) {
               {!collapsed && (
                 <p
                   className="text-2xs font-600 tracking-widest uppercase px-2 mb-1"
-                  style={{ color: 'var(--color-accent)', opacity: 0.6 }}
+                  style={{ color: '#6E6E73', opacity: 0.7 }}
                 >
                   {group}
                 </p>
@@ -152,7 +151,14 @@ export default function Sidebar({ currentPath = '/' }: SidebarProps) {
                     href={item.href}
                     className={`nav-item mb-0.5 ${isActive ? 'active' : ''}`}
                     title={collapsed ? item.label : undefined}
-                    style={collapsed ? { justifyContent: 'center', padding: '0.625rem' } : {}}
+                    style={{
+                      ...(collapsed ? { justifyContent: 'center', padding: '0.625rem' } : {}),
+                      transition: 'all 200ms cubic-bezier(0.34, 1.56, 0.64, 1)',
+                      color: isActive ? '#0071E3' : '#6E6E73',
+                      background: isActive ? 'rgba(0,113,227,0.1)' : 'transparent',
+                      border: isActive ? '1px solid rgba(0,113,227,0.2)' : '1px solid transparent',
+                      borderRadius: '9999px',
+                    }}
                   >
                     <span className="nav-item-icon flex-shrink-0">{item.icon}</span>
                     {!collapsed && (
@@ -162,8 +168,8 @@ export default function Sidebar({ currentPath = '/' }: SidebarProps) {
                           <span
                             className="text-2xs font-600 px-1.5 py-0.5 rounded-full flex-shrink-0"
                             style={{
-                              background: 'rgba(142,182,155,0.2)',
-                              color: 'var(--color-highlight)',
+                              background: 'rgba(0,113,227,0.1)',
+                              color: '#0071E3',
                             }}
                           >
                             {item.badge}
@@ -182,19 +188,17 @@ export default function Sidebar({ currentPath = '/' }: SidebarProps) {
       {/* Collapse toggle */}
       <div
         className="border-t p-2 flex-shrink-0"
-        style={{ borderColor: 'rgba(142,182,155,0.15)' }}
+        style={{ borderColor: 'rgba(0,0,0,0.08)' }}
       >
         <button
           onClick={() => setCollapsed((c) => !c)}
           className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md transition-all duration-150"
-          style={{ color: 'var(--color-accent)' }}
+          style={{ color: '#6E6E73' }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = 'var(--surface-1)';
-            (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-highlight)';
+            (e.currentTarget as HTMLButtonElement).style.background = 'rgba(0,0,0,0.06)';
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-            (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-accent)';
           }}
           aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >

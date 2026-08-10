@@ -19,7 +19,6 @@ import {
 } from 'lucide-react';
 import AppLogo from '@/components/ui/AppLogo';
 
-
 // ─── Zod schemas ────────────────────────────────────────────────────────────
 const credentialsSchema = z.object({
   username: z
@@ -93,7 +92,7 @@ function OTPInput({ onComplete }: { onComplete: (val: string) => void }) {
           value={d}
           onChange={(e) => handleChange(i, e.target.value)}
           onKeyDown={(e) => handleKeyDown(i, e)}
-          className="w-10 h-12 text-center text-lg font-mono font-bold bg-gray-950 border border-gray-800 rounded-xl text-cyan-400 focus:outline-none focus:border-cyan-500 transition-colors"
+          className="w-12 h-14 text-center text-xl font-medium bg-white border border-black/10 rounded-[10px] text-[#1D1D1F] focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
           aria-label={`OTP digit ${i + 1}`}
           autoComplete="off"
         />
@@ -117,12 +116,12 @@ function CopyButton({ value }: { value: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="p-1 rounded transition-colors text-cyan-400 hover:text-cyan-300"
+      className="p-1 rounded transition-colors text-[#0071E3] hover:text-[#0071E3]/80"
       title={`Copy ${value}`}
       aria-label={`Copy ${value}`}
       type="button"
     >
-      {copied ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+      {copied ? <Check size={14} className="text-[#28CD41]" /> : <Copy size={14} />}
     </button>
   );
 }
@@ -211,29 +210,27 @@ export function LoginMFAClient() {
 
   return (
     <div
-      className="min-h-screen flex w-full bg-gray-950 text-gray-100"
+      className="min-h-screen flex w-full flex-col lg:flex-row font-sans text-[#1D1D1F] relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(to bottom, #F5F5F7, #E8E8ED)',
+      }}
     >
-      {/* ── Left panel: brand / info ─────────────────────────────────────── */}
+      {/* ── Left panel: brand / info (Optional, adjust as needed) ────────────────── */}
       <div
-        className="hidden lg:flex flex-col justify-between w-[480px] xl:w-[520px] flex-shrink-0 p-10 relative overflow-hidden border-r border-gray-800 bg-gray-900"
+        className="hidden lg:flex flex-col justify-between w-[480px] xl:w-[520px] flex-shrink-0 p-12 relative overflow-hidden border-r border-black/5"
       >
-        {/* Glow blob */}
-        <div
-          className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-20 bg-cyan-500 blur-3xl pointer-events-none"
-        />
-
         <div className="relative z-10">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-10">
             <AppLogo showText={false} />
             <div>
               <span
-                className="font-mono text-lg font-bold tracking-wider block text-white"
+                className="text-xl font-semibold tracking-[-0.02em] block text-[#1D1D1F]"
               >
                 SIH1745
               </span>
               <span
-                className="text-xs font-semibold tracking-widest uppercase text-cyan-400"
+                className="text-xs font-medium tracking-wide text-[#6E6E73]"
               >
                 TOR De-anonymization Platform
               </span>
@@ -242,14 +239,14 @@ export function LoginMFAClient() {
 
           {/* Classification banner */}
           <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8 text-xs font-semibold tracking-wider uppercase bg-rose-500/10 border border-rose-500/30 text-rose-400"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8 text-xs font-semibold tracking-wide bg-[#FF3B30]/10 text-[#FF3B30]"
           >
-            <Shield size={12} />
+            <Shield size={14} />
             Law Enforcement Access Only
           </div>
 
           {/* Feature highlights */}
-          <div className="space-y-5">
+          <div className="space-y-6">
             {[
               {
                 id: 'feat-correlation',
@@ -276,34 +273,34 @@ export function LoginMFAClient() {
                 desc: 'Every candidate score is traceable to contributing signals. No black-box attribution.',
               },
             ].map((feat) => (
-              <div key={feat.id} className="flex items-start gap-3">
-                <span
-                  className="text-lg flex-shrink-0 mt-0.5 text-cyan-400"
-                >
-                  {feat.icon}
-                </span>
-                <div>
-                  <p
-                    className="text-sm font-semibold mb-0.5 text-gray-200"
-                  >
-                    {feat.title}
-                  </p>
-                  <p className="text-xs leading-relaxed text-gray-400">
-                    {feat.desc}
-                  </p>
-                </div>
-              </div>
+               <div key={feat.id} className="flex items-start gap-4">
+                 <span
+                   className="text-xl flex-shrink-0 text-[#0071E3]"
+                 >
+                   {feat.icon}
+                 </span>
+                 <div>
+                   <p
+                     className="text-sm font-semibold mb-1 text-[#1D1D1F]"
+                   >
+                     {feat.title}
+                   </p>
+                   <p className="text-sm leading-relaxed text-[#6E6E73]">
+                     {feat.desc}
+                   </p>
+                 </div>
+               </div>
             ))}
           </div>
         </div>
 
         {/* Bottom: version + network status */}
-        <div className="relative z-10 flex items-center justify-between">
-          <span className="text-xs font-mono text-gray-500">
+        <div className="relative z-10 flex items-center justify-between mt-12">
+          <span className="text-xs text-[#6E6E73]">
             v2.4.1 · Build 20260809
           </span>
-          <div className={`flex items-center gap-1.5 text-xs ${isOnline ? 'text-emerald-400' : 'text-rose-400'}`}>
-            {isOnline ? <Wifi size={12} /> : <WifiOff size={12} />}
+          <div className={`flex items-center gap-1.5 text-xs font-medium ${isOnline ? 'text-[#28CD41]' : 'text-[#FF3B30]'}`}>
+            {isOnline ? <Wifi size={14} /> : <WifiOff size={14} />}
             {isOnline ? 'Network: Secure' : 'Offline Mode'}
           </div>
         </div>
@@ -313,64 +310,64 @@ export function LoginMFAClient() {
       <div className="flex-1 flex flex-col items-center justify-center p-6 lg:p-12 overflow-y-auto">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
-          <div className="flex items-center gap-2 mb-8 lg:hidden">
+          <div className="flex items-center justify-center gap-2 mb-8 lg:hidden">
             <AppLogo showText={false} />
             <span
-              className="font-mono text-base font-bold tracking-wider text-white"
+              className="text-xl font-semibold tracking-[-0.02em] text-[#1D1D1F]"
             >
               SIH1745
             </span>
           </div>
 
-          {/* Step indicator */}
-          <div className="flex items-center gap-2 mb-6">
-            <div
-              className={`flex items-center gap-1.5 text-xs font-semibold ${step === 'credentials' ? 'text-white' : 'text-cyan-400'}`}
-            >
-              <span
-                className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                  step === 'credentials' ? 'bg-cyan-600 text-white' : 'bg-gray-800 text-cyan-300'
-                }`}
-              >
-                {step === 'mfa' ? <Check size={10} /> : '1'}
-              </span>
-              Credentials
-            </div>
-            <ChevronRight size={14} className="text-gray-600" />
-            <div
-              className={`flex items-center gap-1.5 text-xs font-semibold ${step === 'mfa' ? 'text-white' : 'text-gray-500'}`}
-            >
-              <span
-                className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                  step === 'mfa' ? 'bg-cyan-600 text-white' : 'bg-gray-800 text-gray-400'
-                }`}
-              >
-                2
-              </span>
-              MFA Verification
-            </div>
-          </div>
-
-          {/* ── Step 1: Credentials ── */}
-          {step === 'credentials' && (
-            <div className="fade-in">
+          <div className="bg-white/80 backdrop-blur-xl rounded-[20px] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/40">
+            {/* Step indicator */}
+            <div className="flex items-center justify-center gap-2 mb-8">
               <div
-                className="rounded-2xl border p-6 mb-4 bg-gray-900 border-gray-800"
+                className={`flex items-center gap-1.5 text-xs font-medium ${step === 'credentials' ? 'text-[#1D1D1F]' : 'text-[#6E6E73]'}`}
               >
-                <h1 className="text-xl font-bold mb-1 text-white">
-                  Investigator Sign In
-                </h1>
-                <p className="text-xs mb-6 text-gray-400">
-                  Access is restricted to authorized law enforcement personnel. All sessions are logged.
-                </p>
+                <span
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-semibold transition-colors duration-300 ${
+                    step === 'credentials' ? 'bg-[#1D1D1F] text-white' : 'bg-black/5 text-[#6E6E73]'
+                  }`}
+                >
+                  {step === 'mfa' ? <Check size={10} /> : '1'}
+                </span>
+                Credentials
+              </div>
+              <ChevronRight size={14} className="text-black/20" />
+              <div
+                className={`flex items-center gap-1.5 text-xs font-medium transition-colors duration-300 ${step === 'mfa' ? 'text-[#1D1D1F]' : 'text-[#6E6E73]'}`}
+              >
+                <span
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-semibold transition-colors duration-300 ${
+                    step === 'mfa' ? 'bg-[#1D1D1F] text-white' : 'bg-black/5 text-[#6E6E73]'
+                  }`}
+                >
+                  2
+                </span>
+                Verification
+              </div>
+            </div>
+
+            {/* ── Step 1: Credentials ── */}
+            {step === 'credentials' && (
+              <div className="animate-in fade-in slide-in-from-bottom-2 duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                <div className="text-center mb-8">
+                  <h1 className="text-2xl font-semibold mb-2 tracking-tight text-[#1D1D1F]">
+                    Sign In
+                  </h1>
+                  <p className="text-sm text-[#6E6E73]">
+                    Authorized law enforcement personnel only.
+                  </p>
+                </div>
 
                 {/* Global error */}
                 {authError && (
                   <div
-                    className="flex items-start gap-2 p-3 rounded-xl mb-4 text-xs bg-rose-500/10 border border-rose-500/30 text-rose-400"
+                    className="flex items-start gap-2 p-3 rounded-xl mb-6 text-sm bg-[#FF3B30]/10 text-[#FF3B30]"
                     role="alert"
                   >
-                    <AlertTriangle size={15} className="flex-shrink-0 mt-0.5" />
+                    <AlertTriangle size={18} className="flex-shrink-0 mt-0.5" />
                     {authError}
                   </div>
                 )}
@@ -378,24 +375,18 @@ export function LoginMFAClient() {
                 <form onSubmit={handleSubmit(onCredentialsSubmit)} className="space-y-4" noValidate>
                   {/* Username */}
                   <div>
-                    <label
-                      htmlFor="username"
-                      className="block text-xs font-mono text-gray-300 mb-1.5"
-                    >
-                      Username / Badge Email
-                    </label>
                     <div className="relative">
                       <User
-                        size={15}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                        size={18}
+                        className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6E6E73]"
                       />
                       <input
                         id="username"
                         type="text"
                         autoComplete="username"
-                        placeholder="sa.name@lea-cyberunit.gov"
+                        placeholder="Email or Username"
                         {...register('username')}
-                        className={`w-full pl-9 pr-3 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs text-white font-mono focus:outline-none focus:border-cyan-500 transition-colors ${errors.username ? 'border-rose-500' : ''}`}
+                        className={`w-full pl-10 pr-4 py-3.5 rounded-[10px] bg-[rgba(118,118,128,0.12)] border-none text-[15px] text-[#1D1D1F] placeholder:text-[#6E6E73] focus:outline-none focus:ring-2 focus:ring-[#0071E3]/50 transition-all duration-300 ${errors.username ? 'ring-2 ring-[#FF3B30]/50' : ''}`}
                         aria-describedby={errors.username ? 'username-error' : undefined}
                         aria-invalid={!!errors.username}
                       />
@@ -403,7 +394,7 @@ export function LoginMFAClient() {
                     {errors.username && (
                       <p
                         id="username-error"
-                        className="text-xs mt-1 text-rose-400"
+                        className="text-xs mt-1.5 ml-1 text-[#FF3B30]"
                         role="alert"
                       >
                         {errors.username.message}
@@ -413,40 +404,34 @@ export function LoginMFAClient() {
 
                   {/* Password */}
                   <div>
-                    <label
-                      htmlFor="password"
-                      className="block text-xs font-mono text-gray-300 mb-1.5"
-                    >
-                      Password
-                    </label>
                     <div className="relative">
                       <Lock
-                        size={15}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                        size={18}
+                        className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6E6E73]"
                       />
                       <input
                         id="password"
                         type={showPassword ? 'text' : 'password'}
                         autoComplete="current-password"
-                        placeholder="••••••••••••"
+                        placeholder="Password"
                         {...register('password')}
-                        className={`w-full pl-9 pr-10 py-2.5 rounded-xl bg-gray-950 border border-gray-800 text-xs text-white font-mono focus:outline-none focus:border-cyan-500 transition-colors ${errors.password ? 'border-rose-500' : ''}`}
+                        className={`w-full pl-10 pr-10 py-3.5 rounded-[10px] bg-[rgba(118,118,128,0.12)] border-none text-[15px] text-[#1D1D1F] placeholder:text-[#6E6E73] focus:outline-none focus:ring-2 focus:ring-[#0071E3]/50 transition-all duration-300 ${errors.password ? 'ring-2 ring-[#FF3B30]/50' : ''}`}
                         aria-describedby={errors.password ? 'password-error' : undefined}
                         aria-invalid={!!errors.password}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword((v) => !v)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#6E6E73] hover:text-[#1D1D1F] transition-colors"
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                       >
-                        {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                       </button>
                     </div>
                     {errors.password && (
                       <p
                         id="password-error"
-                        className="text-xs mt-1 text-rose-400"
+                        className="text-xs mt-1.5 ml-1 text-[#FF3B30]"
                         role="alert"
                       >
                         {errors.password.message}
@@ -458,169 +443,122 @@ export function LoginMFAClient() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white transition-all shadow-lg shadow-cyan-600/30 disabled:opacity-60 mt-2"
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full text-[15px] font-medium bg-[#0071E3] hover:bg-[#0077ED] text-white transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-sm disabled:opacity-50 mt-6"
                   >
                     {isLoading ? (
                       <>
                         <span
-                          className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"
+                          className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
                         />
-                        Verifying…
+                        Verifying...
                       </>
                     ) : (
                       <>
-                        Sign In
-                        <ChevronRight size={15} />
+                        Continue
+                        <ChevronRight size={16} />
                       </>
                     )}
                   </button>
                 </form>
-              </div>
 
-              {/* Session policy notice */}
-              <div
-                className="rounded-xl border p-3 mb-4 bg-gray-900/60 border-gray-800"
-              >
-                <div className="flex items-start gap-2">
-                  <Shield size={13} className="flex-shrink-0 mt-0.5 text-cyan-400" />
-                  <div>
-                    <p className="text-xs font-semibold mb-0.5 text-cyan-300">
-                      Session Policy
-                    </p>
-                    <p className="text-xs leading-relaxed text-gray-400">
-                      Sessions auto-terminate after 60 minutes of inactivity. All access events are logged immutably to the chain-of-custody audit trail. Unauthorized access is a federal offense under 18 U.S.C. § 1030.
-                    </p>
+                {/* Session policy notice */}
+                <div
+                  className="mt-6 p-4 rounded-[12px] bg-[rgba(118,118,128,0.05)]"
+                >
+                  <div className="flex items-start gap-3">
+                    <Shield size={16} className="flex-shrink-0 mt-0.5 text-[#0071E3]" />
+                    <div>
+                      <p className="text-xs font-medium mb-1 text-[#1D1D1F]">
+                        Session Policy
+                      </p>
+                      <p className="text-[11px] leading-relaxed text-[#6E6E73]">
+                        Sessions auto-terminate after 60 minutes of inactivity. All access events are logged immutably. Unauthorized access is a federal offense under 18 U.S.C. § 1030.
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Demo credentials panel */}
-              <div
-                className="rounded-xl border overflow-hidden bg-gray-900 border-gray-800"
-              >
+                {/* Demo credentials panel */}
                 <div
-                  className="px-3 py-2 border-b border-gray-800 flex items-center gap-2"
+                  className="mt-8 rounded-[12px] overflow-hidden bg-white border border-black/5"
                 >
-                  <span className="text-xs font-semibold text-cyan-300">
-                    Demo Credentials
-                  </span>
-                  <span
-                    className="text-[10px] px-1.5 py-0.5 rounded font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30"
-                  >
-                    Dev/Eval Only
-                  </span>
-                </div>
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="border-b border-gray-800 text-[10px] uppercase font-mono text-gray-500">
-                      {['Role', 'Username', 'Password', ''].map((h, i) => (
-                        <th
-                          key={`cred-th-${i}`}
-                          className="px-3 py-1.5 font-medium"
-                        >
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-800">
-                    {demoCredentials.map((cred) => (
-                      <tr
-                        key={cred.id}
-                        className="hover:bg-gray-950/60 transition-colors"
-                      >
-                        <td className="px-3 py-2">
-                          <span
-                            className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-mono"
-                          >
-                            {cred.role}
-                          </span>
-                        </td>
-                        <td className="px-3 py-2">
-                          <div className="flex items-center gap-1">
-                            <span
-                              className="text-xs font-mono truncate max-w-[140px] text-gray-200"
-                              title={cred.username}
-                            >
-                              {cred.username}
-                            </span>
-                            <CopyButton value={cred.username} />
-                          </div>
-                        </td>
-                        <td className="px-3 py-2">
-                          <div className="flex items-center gap-1">
-                            <span
-                              className="text-xs font-mono text-gray-500"
-                            >
-                              ••••••••
-                            </span>
-                            <CopyButton value={cred.password} />
-                          </div>
-                        </td>
-                        <td className="px-3 py-2 text-right">
-                          <button
-                            type="button"
-                            onClick={() => autofillCredentials(cred.username, cred.password)}
-                            className="text-[10px] px-2 py-1 rounded bg-gray-800 hover:bg-cyan-600 text-gray-200 hover:text-white font-semibold transition-colors"
-                          >
-                            Use
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* ── Step 2: MFA ── */}
-          {step === 'mfa' && (
-            <div className="fade-in">
-              <div
-                className="rounded-2xl border p-6 mb-4 bg-gray-900 border-gray-800"
-              >
-                <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center bg-cyan-500/10 text-cyan-400 border border-cyan-500/30"
+                    className="px-4 py-3 border-b border-black/5 flex items-center justify-between"
                   >
-                    <Shield size={20} />
-                  </div>
-                  <div>
-                    <h1 className="text-xl font-bold text-white">
-                      MFA Verification
-                    </h1>
-                    <p className="text-xs text-gray-400">
-                      Enter the 6-digit code from your authenticator app
-                    </p>
-                  </div>
-                </div>
-
-                {/* MFA info banner */}
-                <div
-                  className="flex items-start gap-2 p-3 rounded-xl mb-5 text-xs bg-cyan-500/10 border border-cyan-500/30 text-cyan-300"
-                >
-                  <Lock size={13} className="flex-shrink-0 mt-0.5" />
-                  <span>
-                    Open your TOTP authenticator app (Google Authenticator, Authy, or FreeOTP) and enter the current 6-digit code for{' '}
-                    <span className="font-bold text-white">
-                      SIH1745 LEA Platform
+                    <span className="text-xs font-semibold text-[#1D1D1F]">
+                      Demo Accounts
                     </span>
-                    .
-                  </span>
+                    <span
+                      className="text-[10px] px-2 py-0.5 rounded-full font-medium bg-[#FF9500]/10 text-[#FF9500]"
+                    >
+                      Eval Only
+                    </span>
+                  </div>
+                  <table className="w-full text-left">
+                    <tbody className="divide-y divide-black/5">
+                      {demoCredentials.map((cred) => (
+                        <tr
+                          key={cred.id}
+                          className="hover:bg-black/[0.02] transition-colors"
+                        >
+                          <td className="px-4 py-3">
+                            <span
+                              className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#0071E3]/10 text-[#0071E3]"
+                            >
+                              {cred.role}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="text-xs truncate max-w-[120px] text-[#1D1D1F]"
+                                title={cred.username}
+                              >
+                                {cred.username}
+                              </span>
+                              <CopyButton value={cred.username} />
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-right">
+                            <button
+                              type="button"
+                              onClick={() => autofillCredentials(cred.username, cred.password)}
+                              className="text-[11px] px-3 py-1.5 rounded-full bg-black/5 hover:bg-[#0071E3] text-[#1D1D1F] hover:text-white font-medium transition-colors"
+                            >
+                              Use
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* ── Step 2: MFA ── */}
+            {step === 'mfa' && (
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                <div className="text-center mb-8">
+                  <div
+                    className="w-12 h-12 rounded-full mx-auto flex items-center justify-center bg-[#0071E3]/10 text-[#0071E3] mb-4"
+                  >
+                    <Shield size={24} />
+                  </div>
+                  <h1 className="text-2xl font-semibold mb-2 tracking-tight text-[#1D1D1F]">
+                    Two-Factor Authentication
+                  </h1>
+                  <p className="text-sm text-[#6E6E73]">
+                    Enter the 6-digit code from your authenticator app
+                  </p>
                 </div>
 
                 {/* OTP input */}
-                <div className="mb-4">
-                  <label
-                    className="block text-xs font-mono font-semibold mb-3 text-center tracking-widest uppercase text-cyan-400"
-                  >
-                    One-Time Passcode
-                  </label>
+                <div className="mb-8">
                   <OTPInput onComplete={(val) => setOtpValue(val)} />
                   {otpError && (
                     <p
-                      className="text-xs mt-3 text-center text-rose-400"
+                      className="text-xs mt-4 text-center text-[#FF3B30]"
                       role="alert"
                     >
                       {otpError}
@@ -630,7 +568,7 @@ export function LoginMFAClient() {
 
                 {/* Demo hint */}
                 <p
-                  className="text-[10px] text-center mb-4 text-gray-500 font-mono"
+                  className="text-xs text-center mb-6 text-[#6E6E73]"
                 >
                   Demo: enter any 6 digits (e.g. 123456)
                 </p>
@@ -640,17 +578,16 @@ export function LoginMFAClient() {
                   type="button"
                   onClick={onOTPSubmit}
                   disabled={isLoading || otpValue.length !== 6}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white transition-all shadow-lg shadow-cyan-600/30"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full text-[15px] font-medium bg-[#0071E3] hover:bg-[#0077ED] disabled:opacity-50 text-white transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-sm"
                 >
                   {isLoading ? (
                     <>
-                      <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      Verifying MFA…
+                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Verifying...
                     </>
                   ) : (
                     <>
-                      <Shield size={15} />
-                      Verify &amp; Access Platform
+                      Verify &amp; Continue
                     </>
                   )}
                 </button>
@@ -659,23 +596,13 @@ export function LoginMFAClient() {
                 <button
                   type="button"
                   onClick={() => { setStep('credentials'); setOtpValue(''); setOtpError(''); }}
-                  className="w-full text-center text-xs mt-3 py-2 text-gray-400 hover:text-cyan-400 transition-colors"
+                  className="w-full text-center text-sm mt-6 text-[#0071E3] hover:text-[#0077ED] transition-colors font-medium"
                 >
-                  ← Back to credentials
+                  Back to sign in
                 </button>
               </div>
-
-              {/* Session policy notice */}
-              <div
-                className="rounded-xl border p-3 bg-gray-900/60 border-gray-800"
-              >
-                <p className="text-xs leading-relaxed text-gray-400">
-                  <span className="font-semibold text-cyan-300">Data handling notice: </span>
-                  No case data is stored client-side. Session tokens are scoped per case. This session will auto-expire after 60 minutes of inactivity and will be recorded in the immutable audit log.
-                </p>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

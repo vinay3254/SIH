@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analysis-engine
+  namespace: sih1745
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: analysis-engine
+  template:
+    metadata:
+      labels:
+        app: analysis-engine
+    spec:
+      containers:
+      - name: analysis-engine
+        image: sih1745/analysis-engine:latest
+        ports:
+        - containerPort: 5004
+        envFrom:
+        - configMapRef:
+            name: sih1745-config
+        - secretRef:
+            name: sih1745-secrets
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5004
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5004
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: analysis-engine
+  namespace: sih1745
+spec:
+  selector:
+    app: analysis-engine
+  ports:
+    - protocol: TCP
+      port: 5004
+      targetPort: 5004

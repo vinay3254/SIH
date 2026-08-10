@@ -1,0 +1,11 @@
+flask
+flask-cors
+numpy
+scipy
+pandas
+scikit-learn
+pika
+psycopg2-binary
+python-dotenv
+gunicorn
+uuid

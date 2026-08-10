@@ -139,10 +139,10 @@ const priorityColors: Record<string, string> = {
 };
 
 const classificationColors: Record<string, string> = {
-  'Top Secret': 'bg-rose-500/20 text-rose-300 border border-rose-500/40',
-  Secret: 'bg-amber-500/20 text-amber-300 border border-amber-500/40',
-  Confidential: 'bg-blue-500/20 text-blue-300 border border-blue-500/40',
-  Unclassified: 'bg-gray-500/20 text-gray-300 border border-gray-500/40',
+  'Top Secret': 'bg-[rgba(255,59,48,0.1)] text-[#FF3B30] border-none rounded-[980px]',
+  Secret: 'bg-[rgba(255,159,10,0.1)] text-[#FF9F0A] border-none rounded-[980px]',
+  Confidential: 'bg-[rgba(0,113,227,0.1)] text-[#0071E3] border-none rounded-[980px]',
+  Unclassified: 'bg-gray-500/20 text-[#6E6E73] border border-gray-500/40',
 };
 
 export function CaseListingSection() {
@@ -204,17 +204,17 @@ export function CaseListingSection() {
       );
     }
     return sortDir === 'asc' ? (
-      <ChevronUp size={11} className="text-cyan-400" />
+      <ChevronUp size={11} className="text-[#0071E3]" />
     ) : (
-      <ChevronDown size={11} className="text-cyan-400" />
+      <ChevronDown size={11} className="text-[#0071E3]" />
     );
   };
 
   const thStyle: React.CSSProperties = {
-    color: '#9ca3af',
-    fontSize: '0.6875rem',
+    color: '#6E6E73',
+    fontSize: '11px',
     fontWeight: 500,
-    letterSpacing: '0.05em',
+    letterSpacing: '0.04em',
     textTransform: 'uppercase',
     padding: '0.625rem 0.75rem',
     whiteSpace: 'nowrap',
@@ -224,18 +224,18 @@ export function CaseListingSection() {
 
   return (
     <div
-      className="rounded-xl border overflow-hidden bg-gray-900 border-gray-800"
+      className="rounded-[16px] border border-[rgba(0,0,0,0.08)] overflow-hidden bg-[#FFFFFF]"
     >
       {/* Table header bar */}
       <div
-        className="flex items-center justify-between px-4 py-3 border-b border-gray-800"
+        className="flex items-center justify-between px-4 py-3 border-b border-[rgba(0,0,0,0.08)]"
       >
         <div className="flex items-center gap-2">
-          <h2 className="text-sm font-semibold text-white">
+          <h2 className="text-sm font-medium text-[#1D1D1F]">
             Investigation Cases
           </h2>
           <span
-            className="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-mono"
+            className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[rgba(0,113,227,0.1)] text-[#0071E3] border border-cyan-500/30 font-mono"
           >
             {mockCases.length}
           </span>
@@ -243,7 +243,7 @@ export function CaseListingSection() {
         <div className="flex items-center gap-2">
           {selectedRows.size > 0 && (
             <span
-              className="text-xs px-2.5 py-1 rounded-lg font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-500/30"
+              className="text-xs px-2.5 py-1 rounded-lg font-medium bg-[rgba(0,113,227,0.1)] text-[#0071E3] border border-cyan-500/30"
             >
               {selectedRows.size} selected
             </span>
@@ -255,13 +255,13 @@ export function CaseListingSection() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[1100px] text-left">
           <thead>
-            <tr className="border-b border-gray-800">
+            <tr className="border-b border-[rgba(0,0,0,0.08)]">
               <th style={{ ...thStyle, width: 36, padding: '0.625rem 0.75rem' }}>
                 <input
                   type="checkbox"
                   checked={selectedRows.size === paginated.length && paginated.length > 0}
                   onChange={toggleAll}
-                  className="rounded accent-cyan-500 cursor-pointer"
+                  className="rounded accent-[#0071E3] cursor-pointer"
                   aria-label="Select all cases"
                 />
               </th>
@@ -301,7 +301,7 @@ export function CaseListingSection() {
                     title="No cases found"
                     description="No investigation cases match your current filters. Adjust the search or status filters to see results."
                     action={
-                      <a href="/new-case-evidence-intake" className="px-4 py-2 rounded-lg text-sm font-semibold bg-cyan-600 hover:bg-cyan-500 text-white transition-colors">
+                      <a href="/new-case-evidence-intake" className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#0071E3] hover:opacity-90 text-[#1D1D1F] transition-colors">
                         Create First Case
                       </a>
                     }
@@ -312,8 +312,8 @@ export function CaseListingSection() {
               paginated.map((c) => (
                 <tr
                   key={c.id}
-                  className={`border-b border-gray-800/60 transition-colors ${
-                    selectedRows.has(c.id) ? 'bg-cyan-500/10' : 'hover:bg-gray-800/40'
+                  className={`border-b border-[rgba(0,0,0,0.08)]/60 transition-colors ${
+                    selectedRows.has(c.id) ? 'bg-[rgba(0,113,227,0.1)]' : 'hover:bg-[rgba(0,0,0,0.02)]'
                   }`}
                   onMouseEnter={() => setHoveredRow(c.id)}
                   onMouseLeave={() => setHoveredRow(null)}
@@ -324,7 +324,7 @@ export function CaseListingSection() {
                       type="checkbox"
                       checked={selectedRows.has(c.id)}
                       onChange={() => toggleRow(c.id)}
-                      className="accent-cyan-500 cursor-pointer"
+                      className="accent-[#0071E3] cursor-pointer"
                       aria-label={`Select case ${c.id}`}
                     />
                   </td>
@@ -332,7 +332,7 @@ export function CaseListingSection() {
                   {/* Case ID */}
                   <td style={{ padding: '0.75rem' }}>
                     <span
-                      className="font-mono text-xs text-cyan-400 font-bold"
+                      className="font-mono text-xs text-[#0071E3] font-bold"
                     >
                       {c.id}
                     </span>
@@ -342,7 +342,7 @@ export function CaseListingSection() {
                   <td style={{ padding: '0.75rem' }}>
                     <div className="flex items-center gap-2">
                       <span
-                        className="text-sm font-semibold text-gray-100"
+                        className="text-sm font-medium text-[#1D1D1F]"
                       >
                         {c.name}
                       </span>
@@ -366,7 +366,7 @@ export function CaseListingSection() {
 
                   {/* Analyst */}
                   <td style={{ padding: '0.75rem' }}>
-                    <span className="text-xs text-gray-400 font-mono">
+                    <span className="text-xs text-[#6E6E73] font-mono">
                       {c.analyst}
                     </span>
                   </td>
@@ -374,7 +374,7 @@ export function CaseListingSection() {
                   {/* Onion address */}
                   <td style={{ padding: '0.75rem', maxWidth: '180px' }}>
                     <span
-                      className="font-mono text-[10px] text-cyan-400/80 block truncate"
+                      className="font-mono text-[10px] text-[#0071E3]/80 block truncate"
                       title={c.onionAddresses[0]}
                     >
                       {c.onionAddresses[0].slice(0, 20)}…
@@ -389,7 +389,7 @@ export function CaseListingSection() {
                   {/* Evidence count */}
                   <td style={{ padding: '0.75rem' }}>
                     <span
-                      className="text-sm font-semibold text-white font-mono"
+                      className="text-sm font-medium text-[#1D1D1F] font-mono"
                     >
                       {c.evidenceCount.toLocaleString()}
                     </span>
@@ -399,7 +399,7 @@ export function CaseListingSection() {
                   <td style={{ padding: '0.75rem' }}>
                     <div className="flex items-center gap-1.5">
                       <span
-                        className="text-xs font-semibold text-white font-mono"
+                        className="text-xs font-semibold text-[#1D1D1F] font-mono"
                       >
                         {c.jobCount}
                       </span>
@@ -413,7 +413,7 @@ export function CaseListingSection() {
                       <div className="flex items-center gap-2">
                         <ConfidenceBadge score={c.topConfidence} size="sm" showLabel={false} />
                         <span
-                          className="text-[10px] text-gray-400 font-mono"
+                          className="text-[10px] text-[#6E6E73] font-mono"
                         >
                           {c.candidateCount} candidates
                         </span>
@@ -430,7 +430,7 @@ export function CaseListingSection() {
                   {/* Classification */}
                   <td style={{ padding: '0.75rem' }}>
                     <span
-                      className={`text-[10px] px-2 py-0.5 rounded font-mono font-medium ${classificationColors[c.classification] ?? 'bg-gray-800 text-gray-400'}`}
+                      className={`text-[10px] px-2 py-0.5 rounded font-mono font-medium ${classificationColors[c.classification] ?? 'bg-gray-800 text-[#6E6E73]'}`}
                     >
                       {c.classification}
                     </span>
@@ -439,7 +439,7 @@ export function CaseListingSection() {
                   {/* Created date */}
                   <td style={{ padding: '0.75rem' }}>
                     <span
-                      className="text-xs font-mono text-gray-400"
+                      className="text-xs font-mono text-[#6E6E73]"
                     >
                       {c.createdAt}
                     </span>
@@ -453,21 +453,21 @@ export function CaseListingSection() {
                       }`}
                     >
                       <button
-                        className="p-1.5 rounded bg-gray-800 hover:bg-cyan-600 hover:text-white text-gray-300 transition-colors"
+                        className="p-1.5 rounded bg-gray-800 hover:bg-[#0071E3] hover:text-[#1D1D1F] text-[#6E6E73] transition-colors"
                         title="View case details"
                         aria-label={`View details for case ${c.id}`}
                       >
                         <Eye size={14} />
                       </button>
                       <button
-                        className="p-1.5 rounded bg-gray-800 hover:bg-cyan-600 hover:text-white text-gray-300 transition-colors"
+                        className="p-1.5 rounded bg-gray-800 hover:bg-[#0071E3] hover:text-[#1D1D1F] text-[#6E6E73] transition-colors"
                         title="Run correlation analysis"
                         aria-label={`Run correlation analysis for case ${c.id}`}
                       >
                         <Play size={14} />
                       </button>
                       <button
-                        className="p-1.5 rounded bg-gray-800 hover:bg-cyan-600 hover:text-white text-gray-300 transition-colors"
+                        className="p-1.5 rounded bg-gray-800 hover:bg-[#0071E3] hover:text-[#1D1D1F] text-[#6E6E73] transition-colors"
                         title="More options"
                         aria-label={`More options for case ${c.id}`}
                       >
@@ -484,7 +484,7 @@ export function CaseListingSection() {
 
       {/* Pagination */}
       <div
-        className="flex items-center justify-between px-4 py-3 border-t border-gray-800 text-xs text-gray-400"
+        className="flex items-center justify-between px-4 py-3 border-t border-[rgba(0,0,0,0.08)] text-xs text-[#6E6E73]"
       >
         <span>
           Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, mockCases.length)} of{' '}
@@ -494,7 +494,7 @@ export function CaseListingSection() {
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-2.5 py-1.5 rounded-md bg-gray-950 border border-gray-800 text-gray-300 hover:text-white disabled:opacity-30 transition-colors"
+            className="px-2.5 py-1.5 rounded-md bg-transparent border border-gray-800 text-[#6E6E73] hover:text-[#1D1D1F] disabled:opacity-30 transition-colors"
           >
             ← Prev
           </button>
@@ -504,8 +504,8 @@ export function CaseListingSection() {
               onClick={() => setPage(p)}
               className={`px-2.5 py-1.5 rounded-md font-mono transition-colors ${
                 page === p
-                  ? 'bg-cyan-600 text-white border border-cyan-500'
-                  : 'bg-gray-950 border border-gray-800 text-gray-400 hover:text-white'
+                  ? 'bg-[#0071E3] text-[#1D1D1F] border border-cyan-500'
+                  : 'bg-transparent border border-gray-800 text-[#6E6E73] hover:text-[#1D1D1F]'
               }`}
             >
               {p}
@@ -514,7 +514,7 @@ export function CaseListingSection() {
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-2.5 py-1.5 rounded-md bg-gray-950 border border-gray-800 text-gray-300 hover:text-white disabled:opacity-30 transition-colors"
+            className="px-2.5 py-1.5 rounded-md bg-transparent border border-gray-800 text-[#6E6E73] hover:text-[#1D1D1F] disabled:opacity-30 transition-colors"
           >
             Next →
           </button>
